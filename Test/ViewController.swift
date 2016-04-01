@@ -25,6 +25,10 @@ class ViewController: UIViewController {
     let colorGray = UIColor.groupTableViewBackgroundColor()
     
     var score = [0, 0]
+    var winners = [0, 0, 0]
+    
+    var haveWinner = false
+    var haveTie = false
     
 
     override func viewDidLoad() {
@@ -47,14 +51,15 @@ class ViewController: UIViewController {
         scoreLabel[1].text = String(score[1])
         
 //        resetButton.contentEdgeInsets = UIEdgeInsetsMake(20,20,20,20)
-        resetButton.contentEdgeInsets.top = 50
-        resetButton.contentEdgeInsets.left = 50
+        resetButton.imageEdgeInsets.top = 50
+        resetButton.imageEdgeInsets.left = 50
     }
     
     
     @IBAction func clicked(sender: UIButton) {
+        print()
         
-        if(checkForWin() || checkForTie()){
+        if(haveWinner || haveTie){
             return // Disables buttons after tie or win
         }
         
@@ -68,30 +73,41 @@ class ViewController: UIViewController {
         
         updateButtons()
         
-        let won = checkForWin()
-        let tie = checkForTie()
+        haveWinner = checkForWin()
+        haveTie = checkForTie()
         
-        // Let's do some stuff for wins and ties
-        if(won || tie){
-            
-            if(won){// Increments the score for the winner
-                score[player - 1] += 1
-                scoreLabel[player - 1].text = String(score[player - 1])
-            }
-            
-            // Grays out the player indicator (tie and/or win)
-            UIView.animateWithDuration(animationDuration, animations: {
-                self.playerIndicator.backgroundColor = self.colorGray
-            })
+        // End computations if we don't have a winner or tie
+        if(!haveWinner && !haveTie){
+            changePlayer()
             return
         }
         
-        changePlayer()
+        if(haveWinner){// Increments the score for the winner
+            score[player - 1] += 1
+            scoreLabel[player - 1].text = String(score[player - 1])
+            
+            
+            for i in 0..<buttons.count{
+                if(!winners.contains(i) && data[i] != 0){
+                    dimButton(buttons[i])
+                }
+            }
+        }
+            
+        // Grays out the player indicator (tie and/or win)
+        UIView.animateWithDuration(animationDuration, animations: {
+            self.playerIndicator.backgroundColor = self.colorGray
+        })
+        
     }
     
     
     @IBAction func rematch(sender: AnyObject? = nil) {
         changePlayer()
+        
+        haveWinner = false
+        haveTie = false
+        
         for index in 0 ... 8{
             data[index] = 0
         }
@@ -99,7 +115,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func resetClicked(sender: UIButton) {
-        
         
         // create the alert
         let alert = UIAlertController(title: "", message: "Clear Score?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -116,8 +131,6 @@ class ViewController: UIViewController {
         
         // show the alert
         self.presentViewController(alert, animated: true, completion: nil)
-        
-        
     }
     
     func changePlayer(){
@@ -133,10 +146,17 @@ class ViewController: UIViewController {
         })
     }
     
+    func dimButton(button: UIButton){
+        UIView.animateWithDuration(animationDuration, animations: {
+            button.alpha = 0.25
+        })
+    }
+    
     func updateButtons(){
         for index in 0 ... 8{
             
             UIView.animateWithDuration(animationDuration, animations: {
+                self.buttons[index].alpha = 1
                 
                 switch(self.data[index]){
                 case 1:
@@ -165,35 +185,52 @@ class ViewController: UIViewController {
     }
     
     func checkVertical() -> Bool{
-        for i in 0 ... 2{
-            if(data[i] != 0 && data[i] == data[i + 3] && data[i + 3]  == data[i + 6]){
-                return true;
+        
+        for i in 0...2{
+            let a = i       // Top left
+            let b = a + 3   // Middle left
+            let c = b + 3   // Bottom left
+            
+            if(equal(data[a], two: data[b], three: data[c])){
+                winners = [a, b, c]
+                return true
             }
         }
         return false
     }
     
     func checkHorizontal() -> Bool{
-        var i = 0
-        while i <= 6 {
-            if(data[i] != 0 && data[i] == data[i + 1] && data[i + 1]  == data[i + 2]){
-                return true;
+        
+        for i in 0...2{
+            let a = i * 3   // Top left
+            let b = a + 1   // Top middle
+            let c = b + 1   // Top right
+            
+            if(equal(data[a], two: data[b], three: data[c])){
+                winners = [a, b, c]
+                return true
             }
-            i += 3
         }
         return false
     }
     
     func checkDiagonal() -> Bool{
-        if(data[0] != 0 && data[0] == data[4] && data[4]  == data[8]){
-            return true;
+        
+        if(equal(data[0], two: data[4], three: data[8])){
+            winners = [0, 4, 8]
+            return true
         }
         
-        if(data[2] != 0 && data[2] == data[4] && data[4]  == data[6]){
+        if(equal(data[2], two: data[4], three: data[6])){
+            winners = [2, 4, 6]
             return true;
         }
         
         return false
+    }
+    
+    func equal(one: Int, two: Int, three: Int) -> Bool{
+        return one == two && two == three && one != 0
     }
    
 }

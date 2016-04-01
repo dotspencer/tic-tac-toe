@@ -16,7 +16,6 @@
 		5BB0EF221C93837200B1969B /* TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0EF211C93837200B1969B /* TestTests.swift */; };
 		5BB0EF2D1C93837200B1969B /* TestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB0EF2C1C93837200B1969B /* TestUITests.swift */; };
 		5BF238D41CA78B8900903B46 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BF238D31CA78B8900903B46 /* refresh.png */; };
-		5BF238D71CA7AA8000903B46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BF238D61CA7AA8000903B46 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +51,6 @@
 		5BB0EF2C1C93837200B1969B /* TestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUITests.swift; sourceTree = "<group>"; };
 		5BB0EF2E1C93837200B1969B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BF238D31CA78B8900903B46 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
-		5BF238D61CA7AA8000903B46 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Tic-tac-toe/Images.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +81,6 @@
 		5BB0EEFD1C93837200B1969B = {
 			isa = PBXGroup;
 			children = (
-				5BF238D61CA7AA8000903B46 /* Images.xcassets */,
 				5BB0EF081C93837200B1969B /* Tic-tac-toe */,
 				5BB0EF201C93837200B1969B /* Tic-tac-toe-Tests */,
 				5BB0EF2B1C93837200B1969B /* Tic-tac-toe-UITests */,
@@ -243,7 +240,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BB0EF171C93837200B1969B /* LaunchScreen.storyboard in Resources */,
-				5BF238D71CA7AA8000903B46 /* Images.xcassets in Resources */,
 				5BF238D41CA78B8900903B46 /* refresh.png in Resources */,
 				5BB0EF141C93837200B1969B /* Assets.xcassets in Resources */,
 				5BB0EF0F1C93837200B1969B /* Main.storyboard in Resources */,
