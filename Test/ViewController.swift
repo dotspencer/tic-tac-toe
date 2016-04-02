@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     var data = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     var player = 1
+    var startingPlayer = 1
     
     let animationDuration = 0.2
     
@@ -103,7 +104,12 @@ class ViewController: UIViewController {
     
     
     @IBAction func rematch(sender: AnyObject? = nil) {
-        changePlayer()
+        switch(startingPlayer){
+        case 1:
+            changePlayerTo(2)
+        default:
+            changePlayerTo(1)
+        }
         
         haveWinner = false
         haveTie = false
@@ -143,6 +149,22 @@ class ViewController: UIViewController {
             }
             self.player = 1
             self.playerIndicator.backgroundColor = self.color1
+        })
+    }
+    
+    func changePlayerTo(num: Int){
+        UIView.animateWithDuration(animationDuration, animations: {
+            if(num == 1){
+                self.player = 1
+                self.playerIndicator.backgroundColor = self.color1
+                self.startingPlayer = 1
+                return
+            }
+            if(num == 2){
+                self.player = 2
+                self.playerIndicator.backgroundColor = self.color2
+                self.startingPlayer = 2
+            }
         })
     }
     
