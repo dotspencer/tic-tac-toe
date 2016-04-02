@@ -58,7 +58,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func clicked(sender: UIButton) {
-        print()
         
         if(haveWinner || haveTie){
             return // Disables buttons after tie or win
