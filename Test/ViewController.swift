@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     @IBOutlet var scoreLabel: [UILabel]!
     @IBOutlet weak var resetButton: UIButton!
     
+    @IBOutlet var dimensions: [NSLayoutConstraint]!
+    
     var data = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     var player = 1
     var startingPlayer = 1
@@ -31,12 +33,26 @@ class ViewController: UIViewController {
     var haveWinner = false
     var haveTie = false
     
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let screenSize: CGRect = UIScreen.mainScreen().bounds
+//        let screenWidth = screenSize.width
+//        let screenHeight = screenSize.height
+//        
+//        print(screenWidth)
+//        print(screenHeight)
+        
+        for dim in dimensions{
+            dim.constant = 20
+        }
+        
+        
         // Setting button values (which match data[index])
         for index in 0 ... 8{
+            buttons[index].frame = CGRectMake(20, 20, 20, 20)
             buttons[index].tag = index
         }
         
