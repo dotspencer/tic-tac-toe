@@ -32,21 +32,20 @@ class ViewController: UIViewController {
     
     var haveWinner = false
     var haveTie = false
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let screenSize: CGRect = UIScreen.mainScreen().bounds
-//        let screenWidth = screenSize.width
-//        let screenHeight = screenSize.height
-//        
-//        print(screenWidth)
-//        print(screenHeight)
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenSize.width
+        //let screenHeight = screenSize.height
+        
+        //print(screenWidth)
+        
+        let boxWidth = screenWidth / 5
         
         for dim in dimensions{
-            dim.constant = 20
+            dim.constant = boxWidth
         }
         
         
